@@ -37,7 +37,6 @@ public class Player extends Entity {
             image = ImageIO.read(getClass().getResourceAsStream("/Farmer.png"));
         }catch (IOException e){
             e.printStackTrace();
-            System.out.println("sie rozjebal");
         }
 
     }
