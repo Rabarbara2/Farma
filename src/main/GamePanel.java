@@ -18,12 +18,14 @@ public class GamePanel extends JPanel implements Runnable{
     final int SCREEN_HEIGHT = MAX_SCREEN_ROWS * TILE_SIZE;
 
     int FPS = 30;
-    TileManager tileM = new TileManager(this);
+
 
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
+    TileManager tileM = new TileManager(this, keyH, player);
+
 
 
     public GamePanel() {
@@ -83,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable{
             this.requestFocusInWindow();
         }
         player.update();
+        tileM.update();
 
     }
 

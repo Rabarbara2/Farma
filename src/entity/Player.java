@@ -11,6 +11,13 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
     int speed;
+    public int tool;
+    // 0-nic
+    // 1-motyka
+    // 2-podlewaczka
+    // 3-kosa
+    // 4-trawa
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -27,6 +34,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         x = 0;
         y = 0;
+        tool = 0;
         speed = gp.TILE_SIZE;
 
     }
@@ -57,7 +65,6 @@ public class Player extends Entity {
                 y += speed;
                 keyH.downPressed = false;
             }
-
         }
         if(keyH.leftPressed)
         {
@@ -69,8 +76,8 @@ public class Player extends Entity {
         if(keyH.rightPressed)
         {
             if(x!=gp.TILE_SIZE*(gp.MAX_SCREEN_COLUMNS-1)) {
-                x += speed;
-                keyH.rightPressed = false;
+            x += speed;
+            keyH.rightPressed = false;
             }
         }
 
