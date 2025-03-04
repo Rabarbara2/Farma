@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class GameField {
 
     int x,y;
-    boolean isField = false;
+    boolean isField;
     public boolean hoeing, watering, sowing, harvesting, deleting = false;
     int state; // 0-suche, 1-zasiane/suche, 2-zasiane/mokre, 3-rosnie, 4-gotowe, -1-nie pole
     int timer = 0;
@@ -58,16 +58,23 @@ public class GameField {
                 }
             }
         }
-        if(hoeing && !isField){
-            isField = true;
-            state = 0;
+        if(hoeing){
+            if(!isField) {
+                isField = true;
+                state = 0;
+                currentImage = tileM.tiles[1].image[0];
+                System.out.println("hoeing!" + state + isField);
+            }
             hoeing = false;
-            currentImage = tileM.tiles[1].image[0];
         }
-        if(deleting && isField){
-            isField = false;
-            state = -1;
-            currentImage = tileM.tiles[0].image[tileM.randomNumber[x/gp.TILE_SIZE][y/gp.TILE_SIZE]];
+
+        if(deleting){
+            if(isField) {
+                isField = false;
+                state = -1;
+                currentImage = tileM.tiles[0].image[tileM.randomNumber[x / gp.TILE_SIZE][y / gp.TILE_SIZE]];
+                System.out.println("deleting!" + state + isField);
+            }
             deleting = false;
         }
         if(watering && isField && state == 1){

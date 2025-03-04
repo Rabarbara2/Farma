@@ -41,9 +41,25 @@ public class TileManager {
     public void update() {
 
         // TODO Update wszystkie Fields
+        if(keyH.spacePressed)
+        {
+            mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].hoeing = true;
+            keyH.spacePressed = false;
+        }
+        if(keyH.backPressed)
+        {
+            mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].deleting = true;
+            keyH.backPressed = false;
+        }
+
+        for(int i = 0; i<gp.MAX_SCREEN_COLUMNS; i++){
+            for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++) {
+                mapFields[i][j].update();
+                }
+            }
 
     }
-
+    @SuppressWarnings({"DataFlowIssue", "CallToPrintStackTrace"})
     public void loadMap2(){
         try{
             InputStream is = getClass().getResourceAsStream("/map/map.txt");
@@ -70,11 +86,11 @@ public class TileManager {
 //        try{
 //            InputStream is = getClass().getResourceAsStream("/map/map.txt");
 //            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            for(int i = 0; i<gp.MAX_SCREEN_ROWS; i++){
+            for(int i = 0; i<gp.MAX_SCREEN_COLUMNS; i++){
 //                String line = br.readLine();
-                for(int j = 0; j<gp.MAX_SCREEN_COLUMNS; j++){
+                for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++){
 //                    String[] split = line.split(" ");
-                    mapFields[j][i] = new GameField(j*gp.TILE_SIZE, i*gp.TILE_SIZE, keyH, this, player , gp);
+                    mapFields[i][j] = new GameField(i*gp.TILE_SIZE, j*gp.TILE_SIZE, keyH, this, player , gp);
                 }
             }
 //            br.close();
