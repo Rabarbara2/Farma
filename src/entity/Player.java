@@ -45,23 +45,33 @@ public class Player extends Entity {
 
         if(keyH.upPressed)
         {
-            y -= speed;
-            keyH.upPressed = false;
+
+            if(y!=0 ) {
+                y -= speed;
+                keyH.upPressed = false;
+            }
         }
         if(keyH.downPressed)
         {
-            y += speed;
-            keyH.downPressed = false;
+            if(y!=gp.TILE_SIZE*(gp.MAX_SCREEN_ROWS-1)) {
+                y += speed;
+                keyH.downPressed = false;
+            }
+
         }
         if(keyH.leftPressed)
         {
-            x -= speed;
-            keyH.leftPressed = false;
+            if(x!=0) {
+                x -= speed;
+                keyH.leftPressed = false;
+            }
         }
         if(keyH.rightPressed)
         {
-            x += speed;
-            keyH.rightPressed = false;
+            if(x!=gp.TILE_SIZE*(gp.MAX_SCREEN_COLUMNS-1)) {
+                x += speed;
+                keyH.rightPressed = false;
+            }
         }
 
     }

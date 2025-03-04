@@ -59,8 +59,8 @@ public class TileManager {
 
 
     public void draw(Graphics2D g2) {
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < gp.MAX_SCREEN_COLUMNS; i++) {
+            for (int j = 0; j < gp.MAX_SCREEN_ROWS-1; j++) {
                 g2.drawImage(tiles[0].image[randomNumber[i][j]], i*gp.TILE_SIZE, j*gp.TILE_SIZE,gp.TILE_SIZE ,gp.TILE_SIZE , null );
             }}
         for (int i = 0; i < 16; i++) {
