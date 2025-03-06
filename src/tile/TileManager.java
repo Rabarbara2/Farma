@@ -20,7 +20,7 @@ public class TileManager {
     KeyHandler keyH;
     Player player;
     public Tile[] tiles;
-    public int[][] randomNumber = new int[16][10];
+    public int[][] randomNumber;
     public int[][] mapTiles ; // domyślnie Field?
     public GameField[][] mapFields;
 
@@ -30,6 +30,7 @@ public class TileManager {
         this.player = player;
         this.keyH = keyH;
         tiles = new Tile[10];
+        randomNumber = new int[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
         mapTiles = new int[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
         mapFields = new GameField[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
         getTileImage();
@@ -79,6 +80,7 @@ public class TileManager {
 
         }catch (Exception e){
             e.printStackTrace();
+            // większa obsługa wyjątków.
         }
     }
 
@@ -128,8 +130,8 @@ public class TileManager {
     public void generateRandomTextures() {
         //losowa tekstura trawy (placeholder)
         Random random = new Random();
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < gp.MAX_SCREEN_COLUMNS; i++) {
+            for (int j = 0; j < gp.MAX_SCREEN_ROWS; j++) {
                 randomNumber[i][j] = random.nextInt(5);
             }
         }

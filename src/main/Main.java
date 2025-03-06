@@ -1,5 +1,9 @@
 package main;
 
+
+// + dziedziczenie, interfejsy, przeciążanie metod, kolejka,
+
+
 import javax.swing.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
