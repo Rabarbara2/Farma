@@ -4,22 +4,15 @@ import entity.Player;
 import main.GamePanel;
 import main.KeyHandler;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 
+public class GameField extends Field {
 
-public class GameField {
-
-    int x,y;
     boolean isField;
     public boolean hoeing, watering, sowing, harvesting, deleting = false;
     int state; // 0-suche, 1-zasiane/suche, 2-zasiane/mokre, 3-rosnie, 4-gotowe, -1-nie pole
     int timer = 0;
-    KeyHandler keyH;
-    TileManager tileM;
-    Player player;
-    GamePanel gp;
-    BufferedImage currentImage; //??
+
     // Plant plant - tworzony przy update zasiania, ustawiany na null przy zebraniu
     //               chyyyba
 
@@ -36,7 +29,7 @@ public class GameField {
         //                   tiles[0 jesli trawa, 1 jesli pole itp]
     }
 
-    public void update(){
+    void update(){
 
         // to niech sprawdza TileManager + interakcje inne (zasianie)
         if(keyH.spacePressed){
@@ -100,7 +93,7 @@ public class GameField {
         // dojrzałe, podmień obrazki jeśli zmiana stanu (albo bierz obrazki od stanu),
     }
 
-    public void draw(Graphics2D g2){
+    void draw(Graphics2D g2){
         // rysuj osobno roślinke i pole
 
         g2.drawImage(currentImage, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);

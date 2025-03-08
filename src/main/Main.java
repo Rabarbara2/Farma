@@ -1,13 +1,22 @@
 package main;
 
+// jest abstrakcyjna klasa
+// są konstruktory
+// nie wiem gdzie wcisnąć przeciążenie metod (zwykle mogą przyjąć tylko jeden typ zmiennej i albo nie ma innego albo sie wysypią)
+// przesłonięcie mam w player w draw
+// dziedziczenie jest w player po entity ale mega na siłe.
+//interfejs troche tez nie wiem gdzie
+
+
+
+
 
 // + dziedziczenie, interfejsy, przeciążanie metod, kolejka,
 
 
 import javax.swing.*;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame();

@@ -8,8 +8,7 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyHandler keyH;
+
     int speed;
     public int tool;
     // 0-nic
@@ -26,8 +25,6 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
-
-
 
     }
 
@@ -85,7 +82,11 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2) {
 
-        g2.drawImage(image, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+        super.draw(g2);
+
+        if(tool!=0) { // maluj tool
+            //g2.drawImage(/*toolImage, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null*/);
+        }
 
     }
 }

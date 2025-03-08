@@ -8,10 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 public class TileManager {
@@ -38,68 +35,38 @@ public class TileManager {
         loadMap();
     }
 
-    //zmiana mapy (placeholder)
     public void update() {
 
-        // TODO Update wszystkie Fields
-        if(keyH.spacePressed)
+        if(keyH.spacePressed && player.tool == 0) //hoe
         {
             mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].hoeing = true;
             keyH.spacePressed = false;
         }
-        if(keyH.backPressed)
+        if(keyH.spacePressed && player.tool == 1) //delete
         {
             mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].deleting = true;
-            keyH.backPressed = false;
+            keyH.spacePressed = false;
         }
 
-        for(int i = 0; i<gp.MAX_SCREEN_COLUMNS; i++){
+        for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){
             for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++) {
                 mapFields[i][j].update();
                 }
             }
 
     }
-    @SuppressWarnings({"DataFlowIssue", "CallToPrintStackTrace"})
-    public void loadMap2(){
-        try{
-            InputStream is = getClass().getResourceAsStream("/map/map.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            for(int i = 0; i<gp.MAX_SCREEN_ROWS; i++){
-
-                String line = br.readLine();
-
-                for(int j = 0; j<gp.MAX_SCREEN_COLUMNS; j++){
-
-                    String[] split = line.split(" ");
-                    mapTiles[j][i] = Integer.parseInt(split[j]);
-                }
-            }
-            br.close();
-
-        }catch (Exception e){
-            e.printStackTrace();
-            // większa obsługa wyjątków.
-        }
-    }
 
     public void loadMap(){
-//        try{
-//            InputStream is = getClass().getResourceAsStream("/map/map.txt");
-//            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            for(int i = 0; i<gp.MAX_SCREEN_COLUMNS; i++){
-//                String line = br.readLine();
+
+            for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){
+            // w pierwszej kolumnie bd narzędzia i klienci i idk opcje rozne :>
                 for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++){
-//                    String[] split = line.split(" ");
+
                     mapFields[i][j] = new GameField(i*gp.TILE_SIZE, j*gp.TILE_SIZE, keyH, this, player , gp);
                 }
             }
-//            br.close();
 
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
 
     @SuppressWarnings({"DataFlowIssue", "CallToPrintStackTrace"})
@@ -139,18 +106,12 @@ public class TileManager {
 
 
     public void draw(Graphics2D g2) {
-
-        // TODO draw wszystkie Fields
-
         for (int i = 0; i < gp.MAX_SCREEN_COLUMNS; i++) {
+            //maluj pierwszy rząd Fieldów
+        }
+        for (int i = 1; i < gp.MAX_SCREEN_COLUMNS; i++) {
             for (int j = 0; j < gp.MAX_SCREEN_ROWS; j++) {
                 mapFields[i][j].draw(g2);
-//                if (mapTiles[i][j] == 0) {
-//                    g2.drawImage(tiles[0].image[randomNumber[i][j]], i * gp.TILE_SIZE, j * gp.TILE_SIZE, gp.TILE_SIZE, gp.TILE_SIZE, null);
-//                }
-//                if (mapTiles[i][j] == 1) {
-//                    g2.drawImage(tiles[1].image[0], i*gp.TILE_SIZE, j*gp.TILE_SIZE,gp.TILE_SIZE ,gp.TILE_SIZE , null );
-//                }
                 }}
 
 
