@@ -62,28 +62,28 @@ public class GameField extends Field {
             keyH.spacePressed = false;
         }
         // -----------------
-        if(isField){ //                          v dojrzałe state
-            if(state != 0 && state!=1 && state != 4 ){
-                timer++; //  v roslinka.timerZmianyStanu[stan]?
-                if(timer == 99){
-                    // osobno pole i roslinka ehhh
-                    // idk bool moze   //nwm o co mi chodzilo ale zostawie z nadzieją ze sb przypomne
-                    state++;  // to zostaje bo pole musi zmienić stan
-                  //roslinka.state++  // też bo urosla
-       //v roslinka.    bo pole sie nie zmienia wsumie na timerze
-                    currentImage = tileM.tiles[1].image[state];
-                }
-            }
-        }
+//        if(isField){ //                          v dojrzałe state
+//            if(state != 0 && state!=1 && state != 4 ){
+//                timer++; //  v roslinka.timerZmianyStanu[stan]?
+//                if(timer == 99){
+//                    // osobno pole i roslinka ehhh
+//                    // idk bool moze   //nwm o co mi chodzilo ale zostawie z nadzieją ze sb przypomne
+//                    state++;  // to zostaje bo pole musi zmienić stan
+//                  //roslinka.state++  // też bo urosla
+//       //v roslinka.    bo pole sie nie zmienia wsumie na timerze
+//                    currentImage = tileM.tiles[1].image[state];
+//                }
+//            }
+//        }
 
         if(interaction){
             if(player.tool == -1 ){
-                System.out.println("pick up!");
+
                 player.tool = tool;
                 pickedUp = true;
             }
             else if(player.tool != -1 && pickedUp){
-                System.out.println("oddaje!");
+
                 player.tool = -1;
                 pickedUp = false;
             }
@@ -109,13 +109,15 @@ public class GameField extends Field {
             }
             deleting = false;
         }
-        if(watering && isField && state == 1){
+        if(watering && isField && state == 1){ //TODO state zmien na 1, mamy podlewac roslinki a nie gołą ziemie!
+
             state ++;
             currentImage = tileM.tiles[1].image[1];
             watering = false;
         }
         if(sowing && isField && state == 0){
             state ++;
+            System.out.println("sadzic palic zalegalizowac");
           //plant = new Plant(rodzaj roslinki itp)
             sowing = false;
         }
@@ -134,9 +136,13 @@ public class GameField extends Field {
     }
 
     void draw(Graphics2D g2){
-        // rysuj osobno roślinke i pole
 
+        // rysuj osobno roślinke i pole
         g2.drawImage(currentImage, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+
+        if(state >= 1){
+            g2.drawImage(player.toolImages.image[5], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+        }
         if(type == 1 && !pickedUp){
             g2.drawImage(player.toolImages.image[tool], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         }

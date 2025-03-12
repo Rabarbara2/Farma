@@ -50,6 +50,23 @@ public class TileManager {
         }
         if (keyH.spacePressed && player.tool == 1) //delete
         {
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].watering = true;
+            keyH.spacePressed = false;
+        }
+        if (keyH.spacePressed && player.tool == 2) //delete
+        {
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].harvesting = true;
+            keyH.spacePressed = false;
+        }
+
+        if (keyH.spacePressed && player.tool == 3) //delete
+        {
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].sowing = true;
+            keyH.spacePressed = false;
+        }
+
+        if (keyH.spacePressed && player.tool == 4) //delete
+        {
             mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].deleting = true;
             keyH.spacePressed = false;
         }
@@ -75,7 +92,7 @@ public class TileManager {
     public void loadMap(){
         for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++){
 
-            mapFields[0][j] = new GameField(0, j*gp.TILE_SIZE, keyH, this, player , gp, j%2);
+            mapFields[0][j] = new GameField(0, j*gp.TILE_SIZE, keyH, this, player , gp, j%5);
         }
 
             for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){

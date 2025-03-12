@@ -41,7 +41,11 @@ public class Player extends Entity {
         try {
             toolImages.image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/hoe.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/can.png"))
+                    ImageIO.read(getClass().getResourceAsStream("/can.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/kosa.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/seeds.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/grassSeeds.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/roslinka.png")) //TODO chwilowo tu
             };
         } catch (IOException e) {
             throw new RuntimeException(e);
