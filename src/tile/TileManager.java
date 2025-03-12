@@ -37,18 +37,33 @@ public class TileManager {
 
     public void update() {
 
-        if(keyH.spacePressed && player.tool == 0) //hoe
+        //pick up tool
+        if (keyH.spacePressed && mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].type == 1)
         {
-            mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].hoeing = true;
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].interaction = true;
             keyH.spacePressed = false;
         }
-        if(keyH.spacePressed && player.tool == 1) //delete
+        if (keyH.spacePressed && player.tool == 0) //hoe
         {
-            mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].deleting = true;
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].hoeing = true;
             keyH.spacePressed = false;
         }
+        if (keyH.spacePressed && player.tool == 1) //delete
+        {
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].deleting = true;
+            keyH.spacePressed = false;
+        }
+    //}
+//    if(mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].type == 1)
+//    {
+//        if (keyH.spacePressed)
+//        {
+//            System.out.println("yay");
+//            keyH.spacePressed = false;
+//        }
+//    }
 
-        for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){
+        for(int i = 0; i<gp.MAX_SCREEN_COLUMNS; i++){
             for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++) {
                 mapFields[i][j].update();
                 }
@@ -58,6 +73,10 @@ public class TileManager {
 
 
     public void loadMap(){
+        for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++){
+
+            mapFields[0][j] = new GameField(0, j*gp.TILE_SIZE, keyH, this, player , gp, j%2);
+        }
 
             for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){
             // w pierwszej kolumnie bd narzędzia i klienci i idk opcje rozne :>
@@ -89,6 +108,15 @@ public class TileManager {
                     ImageIO.read(getClass().getResourceAsStream("/FieldDry.png")),
                     ImageIO.read(getClass().getResourceAsStream("/FieldWet.png")),
             };
+
+            //Path
+            tiles[2] = new Tile();
+            tiles[2].image = new BufferedImage[] {
+                    ImageIO.read(getClass().getResourceAsStream("/path.png")),
+
+            };
+
+
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -106,10 +134,8 @@ public class TileManager {
 
 
     public void draw(Graphics2D g2) {
+
         for (int i = 0; i < gp.MAX_SCREEN_COLUMNS; i++) {
-            //maluj pierwszy rząd Fieldów
-        }
-        for (int i = 1; i < gp.MAX_SCREEN_COLUMNS; i++) {
             for (int j = 0; j < gp.MAX_SCREEN_ROWS; j++) {
                 mapFields[i][j].draw(g2);
                 }}

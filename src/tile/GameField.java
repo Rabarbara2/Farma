@@ -3,19 +3,29 @@ package tile;
 import entity.Player;
 import main.GamePanel;
 import main.KeyHandler;
+
 import java.awt.*;
 
 
 public class GameField extends Field {
-
+//for fields
     boolean isField;
     public boolean hoeing, watering, sowing, harvesting, deleting = false;
     int state; // 0-suche, 1-zasiane/suche, 2-zasiane/mokre, 3-rosnie, 4-gotowe, -1-nie pole
     int timer = 0;
+//for tools
+
+    public boolean pickedUp, interaction = false;
+    public int tool;
+    // 0-nic
+    // 1-motyka
+    // 2-podlewaczka
+    // 3-kosa
+    // 4-trawa
 
     // Plant plant - tworzony przy update zasiania, ustawiany na null przy zebraniu
     //               chyyyba
-
+//field constructor
     public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp){
         this.x = x;
         this.y = y;
@@ -25,9 +35,23 @@ public class GameField extends Field {
         this.gp = gp;
         this.tileM = tileM;
         this.player = player;
+        this.type = 0;
         currentImage = tileM.tiles[0].image[tileM.randomNumber[x/gp.TILE_SIZE][y/gp.TILE_SIZE]];
         //                   tiles[0 jesli trawa, 1 jesli pole itp]
     }
+//toolfield constructor
+    public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, int tool){
+        this.x = x;
+        this.y = y;
+        this.keyH = keyH;
+        this.gp = gp;
+        this.tileM = tileM;
+        this.player = player;
+        this.type = 1;
+        this.tool = tool;
+        currentImage = tileM.tiles[2].image[0];
+    }
+
 
     void update(){
 
@@ -51,12 +75,27 @@ public class GameField extends Field {
                 }
             }
         }
+
+        if(interaction){
+            if(player.tool == -1 ){
+                System.out.println("pick up!");
+                player.tool = tool;
+                pickedUp = true;
+            }
+            else if(player.tool != -1 && pickedUp){
+                System.out.println("oddaje!");
+                player.tool = -1;
+                pickedUp = false;
+            }
+            interaction = false;
+        }
+
         if(hoeing){
             if(!isField) {
                 isField = true;
                 state = 0;
                 currentImage = tileM.tiles[1].image[0];
-                System.out.println("hoeing!" + state + isField);
+
             }
             hoeing = false;
         }
@@ -66,7 +105,7 @@ public class GameField extends Field {
                 isField = false;
                 state = -1;
                 currentImage = tileM.tiles[0].image[tileM.randomNumber[x / gp.TILE_SIZE][y / gp.TILE_SIZE]];
-                System.out.println("deleting!" + state + isField);
+
             }
             deleting = false;
         }
@@ -89,6 +128,7 @@ public class GameField extends Field {
 
 
 
+
         // podlej, zwiększ wszystkim zasianym timer, zmień stan jak timer = timerZmianyStanu, zatrzymaj timer jeśli
         // dojrzałe, podmień obrazki jeśli zmiana stanu (albo bierz obrazki od stanu),
     }
@@ -97,5 +137,8 @@ public class GameField extends Field {
         // rysuj osobno roślinke i pole
 
         g2.drawImage(currentImage, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+        if(type == 1 && !pickedUp){
+            g2.drawImage(player.toolImages.image[tool], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+        }
     }
 }

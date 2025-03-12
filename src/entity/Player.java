@@ -2,8 +2,11 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import tile.Tile;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
@@ -11,7 +14,8 @@ public class Player extends Entity {
 
     int speed;
     public int tool;
-    // 0-nic
+    public Tile toolImages;
+    // -1-nic
     // 1-motyka
     // 2-podlewaczka
     // 3-kosa
@@ -31,8 +35,18 @@ public class Player extends Entity {
     public void setDefaultValues() {
         x = 0;
         y = 0;
-        tool = 0;
+        tool = -1;
         speed = gp.TILE_SIZE;
+        toolImages = new Tile();
+        try {
+            toolImages.image = new BufferedImage[] {
+                    ImageIO.read(getClass().getResourceAsStream("/hoe.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/can.png"))
+            };
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
@@ -84,8 +98,8 @@ public class Player extends Entity {
 
         super.draw(g2);
 
-        if(tool!=0) { // maluj tool
-            //g2.drawImage(/*toolImage, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null*/);
+        if(tool!=-1) { // maluj tool
+            g2.drawImage(toolImages.image[tool], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         }
 
     }

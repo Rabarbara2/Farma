@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 abstract class Field {
 
     int x,y;
+    int type;
     KeyHandler keyH;
     TileManager tileM;
     Player player;

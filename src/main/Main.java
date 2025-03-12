@@ -2,14 +2,13 @@ package main;
 
 // jest abstrakcyjna klasa
 // są konstruktory
-// nie wiem gdzie wcisnąć przeciążenie metod (zwykle mogą przyjąć tylko jeden typ zmiennej i albo nie ma innego albo sie wysypią)
+// przeciążenie w gamefield
 // przesłonięcie mam w player w draw
 // dziedziczenie jest w player po entity ale mega na siłe.
 //interfejs troche tez nie wiem gdzie
 
-
-
-
+// TODO dodaj jescze śmieszną obsługe wyjątków i idk poczytaj co to ta kolejka i czy gdzies wcisniesz
+// Ogarnij to spaghetti bo jest taki syf że aj waj
 
 // + dziedziczenie, interfejsy, przeciążanie metod, kolejka,
 
