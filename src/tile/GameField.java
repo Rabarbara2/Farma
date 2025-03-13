@@ -41,6 +41,7 @@ public class GameField extends Field {
         currentImage = tileM.tiles[0].image[tileM.randomNumber[x/gp.TILE_SIZE][y/gp.TILE_SIZE]];
         //                   tiles[0 jesli trawa, 1 jesli pole itp]
     }
+
 //toolfield constructor
     public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, int tool){
         this.x = x;
