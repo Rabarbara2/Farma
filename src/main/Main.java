@@ -21,7 +21,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Farma Astra");
+        window.setTitle("Symulator ciecierzycy");
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 

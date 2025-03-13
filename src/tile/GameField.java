@@ -21,7 +21,9 @@ public class GameField extends Field {
     // 1-motyka
     // 2-podlewaczka
     // 3-kosa
-    // 4-trawa
+    // 4-trawsko
+// chuj kurwa kot
+    boolean isPchlarz;
 
     // Plant plant - tworzony przy update zasiania, ustawiany na null przy zebraniu
     //               chyyyba
@@ -50,6 +52,18 @@ public class GameField extends Field {
         this.type = 1;
         this.tool = tool;
         currentImage = tileM.tiles[2].image[0];
+    }
+    // pchlarz constructor
+    public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, boolean isPchlarz){
+        this.x = x;
+        this.y = y;
+        this.keyH = keyH;
+        this.gp = gp;
+        this.tileM = tileM;
+        this.player = player;
+        this.type = 2;
+        this.isPchlarz = isPchlarz;
+        currentImage = tileM.tiles[3].image[0];
     }
 
 
@@ -105,25 +119,31 @@ public class GameField extends Field {
                 isField = false;
                 state = -1;
                 currentImage = tileM.tiles[0].image[tileM.randomNumber[x / gp.TILE_SIZE][y / gp.TILE_SIZE]];
+                //roslinka = null
 
             }
             deleting = false;
         }
-        if(watering && isField && state == 1){ //TODO state zmien na 1, mamy podlewac roslinki a nie gołą ziemie!
-
-            state ++;
-            currentImage = tileM.tiles[1].image[1];
+        if(watering){
+            if(isField && state == 1){
+                state ++;
+                currentImage = tileM.tiles[1].image[1];
+            }
             watering = false;
         }
-        if(sowing && isField && state == 0){
-            state ++;
-            System.out.println("sadzic palic zalegalizowac");
+        if(sowing ){
+            if(isField && state == 0){
+                state ++;
+            }
+            //System.out.println("sadzic palic zalegalizowac");
           //plant = new Plant(rodzaj roslinki itp)
             sowing = false;
         }
-        if(harvesting && isField && state == 4){
-            state = 0;
-            currentImage = tileM.tiles[1].image[0];
+        if(harvesting ){
+            if(isField && state == 4){
+                state = 0;
+                currentImage = tileM.tiles[1].image[0];
+            }
             harvesting = false;
           //plant = null   // ????
         }

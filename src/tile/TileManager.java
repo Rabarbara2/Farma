@@ -90,7 +90,8 @@ public class TileManager {
 
 
     public void loadMap(){
-        for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++){
+        mapFields[0][0] = new GameField(0, 0, keyH, this, player , gp, true);
+        for(int j = 1; j<gp.MAX_SCREEN_ROWS; j++){
 
             mapFields[0][j] = new GameField(0, j*gp.TILE_SIZE, keyH, this, player , gp, j%5);
         }
@@ -131,6 +132,17 @@ public class TileManager {
             tiles[2].image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/path.png")),
 
+            };
+            //kot
+            tiles[3] = new Tile();
+            tiles[3].image = new BufferedImage[] {
+                    ImageIO.read(getClass().getResourceAsStream("/kot.png")),
+
+            };
+            //plnty
+            tiles[4] = new Tile();
+            tiles[4].image = new BufferedImage[] {
+                    ImageIO.read(getClass().getResourceAsStream("/roslinka.png"))
             };
 
 
