@@ -8,26 +8,10 @@ import java.awt.*;
 
 
 public class GameField extends Field {
-//for fields
-    boolean isField;
-    public boolean hoeing, watering, sowing, harvesting, deleting = false;
-    int state; // 0-suche, 1-zasiane/suche, 2-zasiane/mokre, 3-rosnie, 4-gotowe, -1-nie pole
-    int timer = 0;
-//for tools
-
-    public boolean pickedUp, interaction = false;
-    public int tool;
-    // 0-nic
-    // 1-motyka
-    // 2-podlewaczka
-    // 3-kosa
-    // 4-trawsko
-// chuj kurwa kot
-    boolean isPchlarz;
 
     // Plant plant - tworzony przy update zasiania, ustawiany na null przy zebraniu
     //               chyyyba
-//field constructor
+
     public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp){
         this.x = x;
         this.y = y;
@@ -39,43 +23,12 @@ public class GameField extends Field {
         this.player = player;
         this.type = 0;
         currentImage = tileM.tiles[0].image[tileM.randomNumber[x/gp.TILE_SIZE][y/gp.TILE_SIZE]];
-        //                   tiles[0 jesli trawa, 1 jesli pole itp]
-    }
 
-//toolfield constructor
-    public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, int tool){
-        this.x = x;
-        this.y = y;
-        this.keyH = keyH;
-        this.gp = gp;
-        this.tileM = tileM;
-        this.player = player;
-        this.type = 1;
-        this.tool = tool;
-        currentImage = tileM.tiles[2].image[0];
     }
-    // pchlarz constructor
-    public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, boolean isPchlarz){
-        this.x = x;
-        this.y = y;
-        this.keyH = keyH;
-        this.gp = gp;
-        this.tileM = tileM;
-        this.player = player;
-        this.type = 2;
-        this.isPchlarz = isPchlarz;
-        currentImage = tileM.tiles[3].image[0];
-    }
-
 
     void update(){
 
-        // to niech sprawdza TileManager + interakcje inne (zasianie)
-        if(keyH.spacePressed){
-            tileM.mapTiles[player.x/gp.TILE_SIZE][player.y/gp.TILE_SIZE] = 1;
-            System.out.println("spacja!");
-            keyH.spacePressed = false;
-        }
+
         // -----------------
 //        if(isField){ //                          v dojrzałe state
 //            if(state != 0 && state!=1 && state != 4 ){
@@ -89,21 +42,7 @@ public class GameField extends Field {
 //                    currentImage = tileM.tiles[1].image[state];
 //                }
 //            }
-//        }
-
-        if(interaction){
-            if(player.tool == -1 ){
-
-                player.tool = tool;
-                pickedUp = true;
-            }
-            else if(player.tool != -1 && pickedUp){
-
-                player.tool = -1;
-                pickedUp = false;
-            }
-            interaction = false;
-        }
+//        }\
 
         if(hoeing){
             if(!isField) {
@@ -126,7 +65,7 @@ public class GameField extends Field {
             deleting = false;
         }
         if(watering){
-            if(isField && state == 1){
+            if(isField && state == 3){
                 state ++;
                 currentImage = tileM.tiles[1].image[1];
             }
@@ -134,7 +73,7 @@ public class GameField extends Field {
         }
         if(sowing ){
             if(isField && state == 0){
-                state ++;
+                state =3;
             }
             //System.out.println("sadzic palic zalegalizowac");
           //plant = new Plant(rodzaj roslinki itp)
@@ -149,23 +88,18 @@ public class GameField extends Field {
           //plant = null   // ????
         }
 
-
-
-
         // podlej, zwiększ wszystkim zasianym timer, zmień stan jak timer = timerZmianyStanu, zatrzymaj timer jeśli
         // dojrzałe, podmień obrazki jeśli zmiana stanu (albo bierz obrazki od stanu),
     }
 
     void draw(Graphics2D g2){
-
         // rysuj osobno roślinke i pole
+
         g2.drawImage(currentImage, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
 
+        // chwilowe rysowanie roslinki
         if(state >= 1){
             g2.drawImage(player.toolImages.image[5], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
-        }
-        if(type == 1 && !pickedUp){
-            g2.drawImage(player.toolImages.image[tool], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         }
     }
 }

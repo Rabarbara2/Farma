@@ -31,7 +31,7 @@ public class Player extends Entity {
         getPlayerImage();
 
     }
-
+    @SuppressWarnings({"DataFlowIssue"})
     public void setDefaultValues() {
         x = 0;
         y = 0;
@@ -45,7 +45,8 @@ public class Player extends Entity {
                     ImageIO.read(getClass().getResourceAsStream("/kosa.png")),
                     ImageIO.read(getClass().getResourceAsStream("/seeds.png")),
                     ImageIO.read(getClass().getResourceAsStream("/grassSeeds.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/roslinka.png")) //TODO chwilowo tu
+                    ImageIO.read(getClass().getResourceAsStream("/roslinka.png"))
+                    //TODO chwilowo tu
             };
         } catch (IOException e) {
             throw new RuntimeException(e);

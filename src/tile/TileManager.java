@@ -19,7 +19,7 @@ public class TileManager {
     public Tile[] tiles;
     public int[][] randomNumber;
     public int[][] mapTiles ; // domyślnie Field?
-    public GameField[][] mapFields;
+    public Field[][] mapFields;
 
 
     public TileManager(GamePanel gp, KeyHandler keyH, Player player) {
@@ -29,7 +29,7 @@ public class TileManager {
         tiles = new Tile[10];
         randomNumber = new int[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
         mapTiles = new int[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
-        mapFields = new GameField[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
+        mapFields = new Field[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
         getTileImage();
         generateRandomTextures();
         loadMap();
@@ -40,7 +40,7 @@ public class TileManager {
         //pick up tool
         if (keyH.spacePressed && mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].type == 1)
         {
-            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].interaction = true;
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].pickingUp = true;
             keyH.spacePressed = false;
         }
         if (keyH.spacePressed && player.tool == 0) //hoe
@@ -70,6 +70,14 @@ public class TileManager {
             mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].deleting = true;
             keyH.spacePressed = false;
         }
+
+        //pozostale interakcje
+        if (keyH.spacePressed)
+        {
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].interaction = true;
+            keyH.spacePressed = false;
+        }
+
     //}
 //    if(mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].type == 1)
 //    {
@@ -79,21 +87,19 @@ public class TileManager {
 //            keyH.spacePressed = false;
 //        }
 //    }
-
         for(int i = 0; i<gp.MAX_SCREEN_COLUMNS; i++){
             for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++) {
                 mapFields[i][j].update();
                 }
             }
-
     }
 
 
     public void loadMap(){
-        mapFields[0][0] = new GameField(0, 0, keyH, this, player , gp, true);
+        mapFields[0][0] = new KittyField(0, 0, keyH, this, player , gp);
         for(int j = 1; j<gp.MAX_SCREEN_ROWS; j++){
 
-            mapFields[0][j] = new GameField(0, j*gp.TILE_SIZE, keyH, this, player , gp, j%5);
+            mapFields[0][j] = new ToolField(0, j*gp.TILE_SIZE, keyH, this, player , gp,j%5);
         }
 
             for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){
