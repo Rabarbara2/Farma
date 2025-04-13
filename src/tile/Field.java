@@ -13,18 +13,11 @@ public class Field {
     //for fields
     boolean isField;
     public boolean hoeing, watering, sowing, harvesting, deleting, interaction = false;
-    int state; // 0-suche, 1-zasiane/suche, 2-zasiane/mokre, 3-rosnie, 4-gotowe, -1-nie pole
-    int timer = 0;
+    public int state; // 0-suche, 1-zasiane/suche, 2-zasiane/mokre, 3-rosnie, 4-gotowe, -1-nie pole
 
     //for tools
     public boolean pickedUp, pickingUp = false;
     public int tool;
-    // 0-nic
-    // 1-motyka
-    // 2-podlewaczka
-    // 3-kosa
-    // 4-trawsko
-
 
     int x,y;
     int type;

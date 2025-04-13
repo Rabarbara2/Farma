@@ -18,7 +18,7 @@ public class TileManager {
     Player player;
     public Tile[] tiles;
     public int[][] randomNumber;
-    public int[][] mapTiles ; // domyślnie Field?
+    public int[][] mapTiles ;
     public Field[][] mapFields;
 
 
@@ -48,12 +48,12 @@ public class TileManager {
             mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].hoeing = true;
             keyH.spacePressed = false;
         }
-        if (keyH.spacePressed && player.tool == 1) //delete
+        if (keyH.spacePressed && player.tool == 1) //water
         {
             mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].watering = true;
             keyH.spacePressed = false;
         }
-        if (keyH.spacePressed && player.tool == 2) //delete
+        if (keyH.spacePressed && player.tool == 2) //harvest
         {
             mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].harvesting = true;
             keyH.spacePressed = false;
@@ -61,13 +61,14 @@ public class TileManager {
 
         if (keyH.spacePressed && player.tool == 3) //delete
         {
-            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].sowing = true;
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].deleting = true;
             keyH.spacePressed = false;
+
         }
 
-        if (keyH.spacePressed && player.tool == 4) //delete
+        if (keyH.spacePressed && player.tool >= 4) //sow
         {
-            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].deleting = true;
+            mapFields[player.x / gp.TILE_SIZE][player.y / gp.TILE_SIZE].sowing = true;
             keyH.spacePressed = false;
         }
 
@@ -78,15 +79,6 @@ public class TileManager {
             keyH.spacePressed = false;
         }
 
-    //}
-//    if(mapFields[player.x/gp.TILE_SIZE][player.y/ gp.TILE_SIZE].type == 1)
-//    {
-//        if (keyH.spacePressed)
-//        {
-//            System.out.println("yay");
-//            keyH.spacePressed = false;
-//        }
-//    }
         for(int i = 0; i<gp.MAX_SCREEN_COLUMNS; i++){
             for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++) {
                 mapFields[i][j].update();
@@ -98,12 +90,13 @@ public class TileManager {
     public void loadMap(){
         mapFields[0][0] = new KittyField(0, 0, keyH, this, player , gp);
         for(int j = 1; j<gp.MAX_SCREEN_ROWS; j++){
-
-            mapFields[0][j] = new ToolField(0, j*gp.TILE_SIZE, keyH, this, player , gp,j%5);
+            if(j<=6)
+                mapFields[0][j] = new ToolField(0, j*gp.TILE_SIZE, keyH, this, player , gp,(j-1)%6);
+            else
+                mapFields[0][j] = new PathField(0, j*gp.TILE_SIZE, keyH, this, player , gp);
         }
 
             for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){
-            // w pierwszej kolumnie bd narzędzia i klienci i idk opcje rozne :>
                 for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++){
 
                     mapFields[i][j] = new GameField(i*gp.TILE_SIZE, j*gp.TILE_SIZE, keyH, this, player , gp);
@@ -145,10 +138,22 @@ public class TileManager {
                     ImageIO.read(getClass().getResourceAsStream("/kot.png")),
 
             };
-            //plnty
+            //plants
+            // cieciorka
             tiles[4] = new Tile();
             tiles[4].image = new BufferedImage[] {
-                    ImageIO.read(getClass().getResourceAsStream("/roslinka.png"))
+                    ImageIO.read(getClass().getResourceAsStream("/roslinka.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/roslinka2.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/roslinka3.png")),
+            };
+            //bratki
+            tiles[5] = new Tile();
+            tiles[5].image = new BufferedImage[] {
+                    ImageIO.read(getClass().getResourceAsStream("/bratek1.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/bratek2.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/bratek3a.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/bratek3b.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/bratek3c.png")),
             };
 
 
@@ -158,7 +163,6 @@ public class TileManager {
     }
 
     public void generateRandomTextures() {
-        //losowa tekstura trawy (placeholder)
         Random random = new Random();
         for (int i = 0; i < gp.MAX_SCREEN_COLUMNS; i++) {
             for (int j = 0; j < gp.MAX_SCREEN_ROWS; j++) {
@@ -174,6 +178,7 @@ public class TileManager {
             for (int j = 0; j < gp.MAX_SCREEN_ROWS; j++) {
                 mapFields[i][j].draw(g2);
                 }}
+
 
 
     }

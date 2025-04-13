@@ -20,7 +20,6 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 30;
 
 
-
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
@@ -39,9 +38,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 
     }
-
-
-
 
 
     public void startGameThread() {
@@ -63,7 +59,6 @@ public class GamePanel extends JPanel implements Runnable{
 
             //Draw
             repaint();
-
 
 
             try {
@@ -101,9 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
         tileM.draw(g2);
         player.draw(g2);
 
-
         g2.dispose();
     }
-
 
 }
