@@ -36,7 +36,7 @@ public class GameField extends Field {
                 isField = true;
                 state = 0;
                 currentImage = tileM.tiles[1].image[0];
-
+                gp.playSoundEffect(1);
             }
             hoeing = false;
         }
@@ -47,6 +47,7 @@ public class GameField extends Field {
                 state = -1;
                 currentImage = tileM.tiles[0].image[tileM.randomNumber[x / gp.TILE_SIZE][y / gp.TILE_SIZE]];
                 plant = null;
+                gp.playSoundEffect(1);
 
             }
             deleting = false;
@@ -55,6 +56,7 @@ public class GameField extends Field {
             if(isField && state == 1){
                 state ++;
                 currentImage = tileM.tiles[1].image[1];
+                gp.playSoundEffect(4);
             }
             watering = false;
         }
@@ -65,6 +67,7 @@ public class GameField extends Field {
                     plant = new entity.Ciecierzyca(x,y,tileM,this);
                 if(player.tool == 5)
                     plant = new entity.Bratek(x,y,tileM,this);
+                gp.playSoundEffect(2);
             }
 
             sowing = false;
@@ -75,6 +78,7 @@ public class GameField extends Field {
                 currentImage = tileM.tiles[1].image[0];
                 player.points += plant.pointValue;
                 plant = null;
+                gp.playSoundEffect(0);
             }
             harvesting = false;
         }

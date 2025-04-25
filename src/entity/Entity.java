@@ -8,6 +8,11 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
+
+    // singleton player
+    // zapisywanie
+    // lista lub kolejka
+
     public int x, y;
     public BufferedImage image;
     GamePanel gp;

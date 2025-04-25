@@ -22,13 +22,14 @@ public class ToolField extends Field{
     void update(){
 
         if(pickingUp){
-            if(player.tool == -1 ){
 
+            if(player.tool == -1 ){
+                gp.playSoundEffect(6);
                 player.tool = tool;
                 pickedUp = true;
             }
             else if(player.tool != -1 && pickedUp){
-
+                gp.playSoundEffect(6);
                 player.tool = -1;
                 pickedUp = false;
             }

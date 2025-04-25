@@ -5,6 +5,7 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -22,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
+    Sound sound = new Sound();
     Player player = new Player(this, keyH);
     TileManager tileM = new TileManager(this, keyH, player);
 
@@ -43,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+        playMusic(5);
 
     }
 
@@ -97,6 +100,19 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
 
         g2.dispose();
+    }
+
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic() {
+        sound.stop();
+    }
+    public void playSoundEffect(int i){
+        sound.setFile(i);
+        sound.play();
     }
 
 }

@@ -21,8 +21,7 @@ public class KittyField extends Field{
     void update(){
 
         if(interaction){
-            //todo dodaj miau
-            System.out.println("miau");
+            gp.playSoundEffect(8);
             interaction = false;
         }
 
