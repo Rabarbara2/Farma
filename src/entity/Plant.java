@@ -20,7 +20,7 @@ public class Plant extends Entity{
             timer += 1;
             if (timer >= growTime) {
                 state += 1;
-                image = tileM.tiles[imageNumber].image[state];
+                image = tileM.tileList.get(imageNumber).image[state];
                 field.state +=1;
                 timer = 0;
                 growTime = growTime + random.nextInt(100) - 50;

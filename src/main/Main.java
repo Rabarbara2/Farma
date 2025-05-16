@@ -12,7 +12,22 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        JMenuBar menubar = new JMenuBar();
+        JMenu menu = new JMenu("save or load");
+        JMenuItem save = new JMenuItem("save");
+        menu.add(save);
+        JMenuItem load = new JMenuItem("load");
+
+        menu.add(load);
+
+        menubar.add(menu);
+
+
         GamePanel gamePanel = new GamePanel();
+        load.addActionListener(e -> {gamePanel.load();});
+        save.addActionListener(e -> {gamePanel.save();});
+        window.setJMenuBar(menubar);
+
         window.add(gamePanel);
         window.pack();
         gamePanel.startGameThread();

@@ -1,11 +1,16 @@
 package main;
 
 import entity.Player;
+import tile.Field;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -24,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Sound sound = new Sound();
-    Player player = new Player(this, keyH);
+    Player player = Player.getInstance(this, keyH);
     TileManager tileM = new TileManager(this, keyH, player);
 
 
@@ -115,4 +120,30 @@ public class GamePanel extends JPanel implements Runnable{
         sound.play();
     }
 
+
+    public void save() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("zapis.txt"))) {
+            outputStream.writeInt(player.getPoints());
+            outputStream.writeInt(player.x);
+            outputStream.writeInt(player.y);
+            System.out.println("Save zapis.bin");
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+    }
+    public void load() {
+        Field[][] loadedFields = null;
+        Player loadedPlayer = null;
+        GamePanel loadedGamePanel = null;
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("zapis.txt"))) {
+            player.setPoints(inputStream.readInt());
+            player.x=(inputStream.readInt());
+            player.y=(inputStream.readInt());
+            
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

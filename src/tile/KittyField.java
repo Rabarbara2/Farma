@@ -5,8 +5,9 @@ import main.GamePanel;
 import main.KeyHandler;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class KittyField extends Field{
+public class KittyField extends Field implements Serializable {
 
     public KittyField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp){
         this.x = x;
@@ -16,7 +17,7 @@ public class KittyField extends Field{
         this.tileM = tileM;
         this.player = player;
         this.type = 2;
-        currentImage = tileM.tiles[3].image[0];
+        currentImage = tileM.tileList.get(3).image[0];
     }
     void update(){
 
@@ -28,7 +29,7 @@ public class KittyField extends Field{
     }
 
     void draw(Graphics2D g2){
-        g2.drawImage(tileM.tiles[2].image[0], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+        g2.drawImage(tileM.tileList.get(2).image[0], x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         g2.drawImage(currentImage, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
 
     }

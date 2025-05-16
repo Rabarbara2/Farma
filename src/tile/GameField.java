@@ -5,11 +5,12 @@ import main.GamePanel;
 import main.KeyHandler;
 
 import java.awt.*;
+import java.io.Serializable;
 
 
-public class GameField extends Field {
+public class GameField extends Field implements Serializable {
 
-    entity.Plant plant;
+    transient entity.Plant plant;
 
     public GameField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp){
         this.x = x;
@@ -21,7 +22,7 @@ public class GameField extends Field {
         this.tileM = tileM;
         this.player = player;
         this.type = 0;
-        currentImage = tileM.tiles[0].image[tileM.randomNumber[x/gp.TILE_SIZE][y/gp.TILE_SIZE]];
+        currentImage = tileM.tileList.get(0).image[tileM.randomNumber[x/gp.TILE_SIZE][y/gp.TILE_SIZE]];
 
     }
 
@@ -35,7 +36,7 @@ public class GameField extends Field {
             if(!isField) {
                 isField = true;
                 state = 0;
-                currentImage = tileM.tiles[1].image[0];
+                currentImage = tileM.tileList.get(1).image[0];
                 gp.playSoundEffect(1);
             }
             hoeing = false;
@@ -45,7 +46,7 @@ public class GameField extends Field {
             if(isField) {
                 isField = false;
                 state = -1;
-                currentImage = tileM.tiles[0].image[tileM.randomNumber[x / gp.TILE_SIZE][y / gp.TILE_SIZE]];
+                currentImage = tileM.tileList.get(0).image[tileM.randomNumber[x / gp.TILE_SIZE][y / gp.TILE_SIZE]];
                 plant = null;
                 gp.playSoundEffect(1);
 
@@ -55,7 +56,7 @@ public class GameField extends Field {
         if(watering){
             if(isField && state == 1){
                 state ++;
-                currentImage = tileM.tiles[1].image[1];
+                currentImage = tileM.tileList.get(1).image[1];
                 gp.playSoundEffect(4);
             }
             watering = false;
@@ -75,7 +76,7 @@ public class GameField extends Field {
         if(harvesting ){
             if(isField && state == 4){
                 state = 0;
-                currentImage = tileM.tiles[1].image[0];
+                currentImage = tileM.tileList.get(1).image[0];
                 player.points += plant.pointValue;
                 plant = null;
                 gp.playSoundEffect(0);

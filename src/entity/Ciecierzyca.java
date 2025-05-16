@@ -8,7 +8,7 @@ public class Ciecierzyca extends Plant {
         this.y = y;
         this.tileM = tileM;
         this.field = gField;
-        this.image = tileM.tiles[4].image[0];
+        this.image = tileM.tileList.get(4).image[0];
         this.timer = 0;
         this.state = 0;
         this.pointValue = 1;

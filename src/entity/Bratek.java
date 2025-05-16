@@ -11,7 +11,7 @@ public class Bratek extends Plant {
         this.tileM = tileM;
         this.field = gField;
         this.imageNumber = 5;
-        this.image = tileM.tiles[imageNumber].image[0];
+        this.image = tileM.tileList.get(imageNumber).image[0];
         this.timer = 0;
         this.state = 0;
         this.pointValue = 5;
@@ -26,10 +26,10 @@ public class Bratek extends Plant {
                 if (timer >= growTime) {
                     state += 1;
                     if (state < 2) {
-                        image = tileM.tiles[imageNumber].image[state];
+                        image = tileM.tileList.get(imageNumber).image[state];
                     }
                     else{
-                        image = tileM.tiles[imageNumber].image[variety];
+                        image = tileM.tileList.get(imageNumber).image[variety];
                     }
 
                     field.state +=1;

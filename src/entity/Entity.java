@@ -5,13 +5,14 @@ import main.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
 
-    // singleton player
+    // singleton player x
     // zapisywanie
-    // lista lub kolejka
+    // lista lub kolejka x
 
     public int x, y;
     public BufferedImage image;

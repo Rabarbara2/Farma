@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 
 public class Field {
 
-
     //for fields
     boolean isField;
     public boolean hoeing, watering, sowing, harvesting, deleting, interaction = false;
@@ -21,11 +20,11 @@ public class Field {
 
     int x,y;
     int type;
-    KeyHandler keyH;
-    TileManager tileM;
-    Player player;
-    GamePanel gp;
-    BufferedImage currentImage;
+    transient KeyHandler keyH;
+    transient TileManager tileM;
+    transient Player player;
+    transient GamePanel gp;
+    transient BufferedImage currentImage;
 
     void update()
     {

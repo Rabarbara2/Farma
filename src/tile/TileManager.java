@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class TileManager {
@@ -16,9 +17,11 @@ public class TileManager {
     GamePanel gp;
     KeyHandler keyH;
     Player player;
-    public Tile[] tiles;
     public int[][] randomNumber;
+
     public int[][] mapTiles ;
+    public ArrayList<Tile> tileList;
+
     public Field[][] mapFields;
 
 
@@ -26,9 +29,9 @@ public class TileManager {
         this.gp = gp;
         this.player = player;
         this.keyH = keyH;
-        tiles = new Tile[10];
+
+        tileList = new ArrayList<Tile>();
         randomNumber = new int[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
-        mapTiles = new int[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
         mapFields = new Field[gp.MAX_SCREEN_COLUMNS][gp.MAX_SCREEN_ROWS];
         getTileImage();
         generateRandomTextures();
@@ -110,8 +113,8 @@ public class TileManager {
 
         try{
             //grass
-            tiles[0] = new Tile();
-            tiles[0].image = new BufferedImage[] {
+            tileList.add(new Tile());
+            tileList.get(0).image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/Grass1.png")),
                     ImageIO.read(getClass().getResourceAsStream("/Grass2.png")),
                     ImageIO.read(getClass().getResourceAsStream("/Grass3.png")),
@@ -120,35 +123,35 @@ public class TileManager {
             };
 
             //Field
-            tiles[1] = new Tile();
-            tiles[1].image = new BufferedImage[] {
+            tileList.add(new Tile());
+            tileList.get(1).image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/FieldDry.png")),
                     ImageIO.read(getClass().getResourceAsStream("/FieldWet.png")),
             };
 
             //Path
-            tiles[2] = new Tile();
-            tiles[2].image = new BufferedImage[] {
+            tileList.add(new Tile());
+            tileList.get(2).image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/path.png")),
 
             };
             //kot
-            tiles[3] = new Tile();
-            tiles[3].image = new BufferedImage[] {
+            tileList.add(new Tile());
+            tileList.get(3).image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/kot.png")),
 
             };
             //plants
             // cieciorka
-            tiles[4] = new Tile();
-            tiles[4].image = new BufferedImage[] {
+            tileList.add(new Tile());
+            tileList.get(4).image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/roslinka.png")),
                     ImageIO.read(getClass().getResourceAsStream("/roslinka2.png")),
                     ImageIO.read(getClass().getResourceAsStream("/roslinka3.png")),
             };
             //bratki
-            tiles[5] = new Tile();
-            tiles[5].image = new BufferedImage[] {
+            tileList.add(new Tile());
+            tileList.get(5).image = new BufferedImage[] {
                     ImageIO.read(getClass().getResourceAsStream("/bratek1.png")),
                     ImageIO.read(getClass().getResourceAsStream("/bratek2.png")),
                     ImageIO.read(getClass().getResourceAsStream("/bratek3a.png")),

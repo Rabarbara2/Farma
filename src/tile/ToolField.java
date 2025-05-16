@@ -5,8 +5,9 @@ import main.GamePanel;
 import main.KeyHandler;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class ToolField extends Field{
+public class ToolField extends Field implements Serializable {
 
     public ToolField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, int tool){
         this.x = x;
@@ -17,7 +18,7 @@ public class ToolField extends Field{
         this.player = player;
         this.type = 1;
         this.tool = tool;
-        currentImage = tileM.tiles[2].image[0];
+        currentImage = tileM.tileList.get(2).image[0];
     }
     void update(){
 
