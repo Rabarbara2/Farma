@@ -35,6 +35,9 @@ public class KeyHandler implements KeyListener {
         if (key == KeyEvent.VK_D) {
             rightPressed = true;
         }
+        if (key == KeyEvent.VK_Z) {
+            GameState.serialize();
+        }
     }
 
     @Override

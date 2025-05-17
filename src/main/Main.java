@@ -16,9 +16,12 @@ public class Main {
         JMenu menu = new JMenu("save or load");
         JMenuItem save = new JMenuItem("save");
         menu.add(save);
-        JMenuItem load = new JMenuItem("load");
 
+        JMenuItem load = new JMenuItem("load");
         menu.add(load);
+
+        JMenuItem deleteSave = new JMenuItem("Delete Save");
+        menu.add(deleteSave);
 
         menubar.add(menu);
 
@@ -26,11 +29,11 @@ public class Main {
         GamePanel gamePanel = new GamePanel();
         load.addActionListener(e -> {gamePanel.load();});
         save.addActionListener(e -> {gamePanel.save();});
+        deleteSave.addActionListener(e -> {gamePanel.deleteSave();});
         window.setJMenuBar(menubar);
 
         window.add(gamePanel);
         window.pack();
         gamePanel.startGameThread();
-
     }
 }

@@ -1,7 +1,9 @@
 package tile;
 
 import entity.Player;
+import main.FieldState;
 import main.GamePanel;
+import main.GameState;
 import main.KeyHandler;
 
 import javax.imageio.ImageIO;
@@ -23,7 +25,7 @@ public class TileManager {
     public ArrayList<Tile> tileList;
 
     public Field[][] mapFields;
-
+    GameState gameState = GameState.getInstance();
 
     public TileManager(GamePanel gp, KeyHandler keyH, Player player) {
         this.gp = gp;
@@ -91,21 +93,43 @@ public class TileManager {
 
 
     public void loadMap(){
-        mapFields[0][0] = new KittyField(0, 0, keyH, this, player , gp);
+        mapFields[0][0] = new KittyField(0, 0, 0, 0, keyH, this, player , gp);
         for(int j = 1; j<gp.MAX_SCREEN_ROWS; j++){
             if(j<=6)
-                mapFields[0][j] = new ToolField(0, j*gp.TILE_SIZE, keyH, this, player , gp,(j-1)%6);
+                mapFields[0][j] = new ToolField(0, j*gp.TILE_SIZE, 0, j, keyH, this, player , gp,(j-1)%6);
             else
-                mapFields[0][j] = new PathField(0, j*gp.TILE_SIZE, keyH, this, player , gp);
+                mapFields[0][j] = new PathField(0, j*gp.TILE_SIZE, 0 , j, keyH, this, player , gp);
         }
 
             for(int i = 1; i<gp.MAX_SCREEN_COLUMNS; i++){
                 for(int j = 0; j<gp.MAX_SCREEN_ROWS; j++){
 
-                    mapFields[i][j] = new GameField(i*gp.TILE_SIZE, j*gp.TILE_SIZE, keyH, this, player , gp);
+                    GameField gameField = new GameField(i*gp.TILE_SIZE, j*gp.TILE_SIZE, i, j, keyH, this, player , gp);
+                    FieldState element = gameState.fieldStateArray[i][j];
+                    if(null != element) {
+
+                        gameField.name = element.name;
+                        gameField.state = element.fieldState;
+                        gameField.setImage(element.fieldState);
+                        gameField.isField = true;
+                        mapFields[i][j] = gameField;
+
+                        if (element.name.equals("Bratek")) {
+                            gameField.plantBratek(element.state);
+                            gameField.plant.state = element.state;
+                            gameField.plant.setImage(5, element.state >= 2 ? element.variety : element.state);
+                            gameField.plant.setImage(5, element.state);
+                        } else if (element.name.equals("Ciecierzyca")) {
+                            gameField.plantCiecierzyca(element.state);
+                            gameField.plant.state = element.state;
+                            gameField.plant.setImage(4, element.state);
+                        }
+                    } else {
+                        mapFields[i][j] = gameField;
+                    }
+
                 }
             }
-
     }
 
     @SuppressWarnings({"DataFlowIssue", "CallToPrintStackTrace"})

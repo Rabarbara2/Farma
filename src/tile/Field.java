@@ -19,6 +19,8 @@ public class Field {
     public int tool;
 
     int x,y;
+    int latitude; // x
+    int longitude; // y
     int type;
     transient KeyHandler keyH;
     transient TileManager tileM;
@@ -26,8 +28,7 @@ public class Field {
     transient GamePanel gp;
     transient BufferedImage currentImage;
 
-    void update()
-    {
+    void update() {
 
     }
     void draw(Graphics2D g2)

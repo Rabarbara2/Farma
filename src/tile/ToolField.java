@@ -9,9 +9,11 @@ import java.io.Serializable;
 
 public class ToolField extends Field implements Serializable {
 
-    public ToolField(int x, int y, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, int tool){
+    public ToolField(int x, int y, int latitude, int longitude, KeyHandler keyH, TileManager tileM, Player player, GamePanel gp, int tool){
         this.x = x;
         this.y = y;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.keyH = keyH;
         this.gp = gp;
         this.tileM = tileM;

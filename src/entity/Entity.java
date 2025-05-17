@@ -9,12 +9,9 @@ import java.io.Serializable;
 
 public abstract class Entity implements Serializable {
 
-
-    // singleton player x
-    // zapisywanie
-    // lista lub kolejka x
-
     public int x, y;
+    int latitude; // x
+    int longitude; // y
     public BufferedImage image;
     GamePanel gp;
     KeyHandler keyH;

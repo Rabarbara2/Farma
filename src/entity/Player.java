@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+import main.GameState;
 import main.KeyHandler;
 import tile.Tile;
 
@@ -19,6 +20,7 @@ public final class Player extends Entity implements Serializable
         transient public int tool;
         transient public Tile toolImages;
         public Integer points;
+        GameState gameState = GameState.getInstance();
 
         private Player(GamePanel gp, KeyHandler keyH)
         {
@@ -42,10 +44,10 @@ public final class Player extends Entity implements Serializable
 
         @SuppressWarnings({"DataFlowIssue"})
         public void setDefaultValues() {
-            x = 0;
-            y = 0;
+            x = gameState.getPlayerX();
+            y = gameState.getPlayerY();
             tool = -1;
-            points = 0;
+            points = gameState.getPoints();
             speed = gp.TILE_SIZE;
             toolImages = new Tile();
             try {
@@ -103,7 +105,7 @@ public final class Player extends Entity implements Serializable
                     keyH.rightPressed = false;
                 }
             }
-
+            gameState.setPlayerState(x, y, points);
         }
 
         public void draw(Graphics2D g2) {
