@@ -68,27 +68,46 @@ public class GameState implements Serializable {
 
     public static void serialize() {
         GameState serialized = instance;
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("GameState.bin"))) {
+        ObjectOutputStream outputStream = null;
+        try {
+            outputStream = new ObjectOutputStream(new FileOutputStream("GameState.bin"));
             outputStream.writeObject(serialized);
             System.out.println("Serializacja zrobiona");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Błąd zapisu");
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                    System.out.println("Strumień został zamknięty");
+                } catch (IOException e) {
+                    System.out.println("Błąd przy zamykaniu strumienia");
+                }
+            }
         }
     }
 
     public static void deserialize() {
         GameState deserialized;
+        ObjectInputStream inputStream = null;
 
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("GameState.bin"))) {
+        try {
+            inputStream = new ObjectInputStream(new FileInputStream("GameState.bin"));
             deserialized = (GameState) inputStream.readObject();
             instance = deserialized;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Błąd odczytu");
-        }
-        catch (ClassNotFoundException e) {
-
+        } catch (ClassNotFoundException e) {
+            System.out.println("Nie znaleziono klasy");
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                    System.out.println("Strumień został zamknięty");
+                } catch (IOException e) {
+                    System.out.println("Błąd przy zamykaniu strumienia");
+                }
+            }
         }
     }
 }
